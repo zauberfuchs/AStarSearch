@@ -32,12 +32,12 @@ void AGridSpawner::Spawn()
 	FRotator Rotation = { 0.0f, 0.0f, 0.0f };
 	FActorSpawnParameters SpawnInfo;
 
-	for (unsigned int i = 0; i < Width; i++)
+	for (int i = 0; i < Width; i++)
 	{
 		Location = { 0, Margin * i, 0 };
 		Grid.Add(TArray<AGridCell*>());
 
-		for (unsigned int j = 0; j < Height; j++)
+		for (int j = 0; j < Height; j++)
 		{
 			Grid[i].Add(world->SpawnActor<AGridCell>(Location, Rotation, SpawnInfo));
 			FAttachmentTransformRules Ar(EAttachmentRule::KeepRelative, true);

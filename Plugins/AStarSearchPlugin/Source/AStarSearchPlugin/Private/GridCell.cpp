@@ -6,6 +6,7 @@
 
 // Sets default values
 AGridCell::AGridCell()
+	: parent(-1, -1), f(-1), g(-1), h(-1)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -16,6 +17,11 @@ AGridCell::AGridCell()
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(Root);
 }
+
+void AGridCell::OnConstruction(const FTransform& Transform)
+{
+	SetIsWall();
+};
 
 // Called when the game starts or when spawned
 void AGridCell::BeginPlay()

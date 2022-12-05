@@ -4,6 +4,9 @@
 
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "GridCell.h"
+#include "GridSpawner.h"
+#include "Chaos/Pair.h"
+#include "Containers/Map.h"
 #include "AStarSearchPluginBPLibrary.generated.h"
 
 /* 
@@ -27,7 +30,13 @@ UCLASS()
 class UAStarSearchPluginBPLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_UCLASS_BODY()
-		
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute GridSpawner function", Keywords = "AStarSearchPlugin GridSpawner"), Category = "AStarSearchPlugin")
-	static void AStarGridSpawner(const int& Width, const int& Height, UStaticMesh* GridCellMesh = NULL, const float& Margin = 0.0f);
+	
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute AStarSearch function", Keywords = "AStarSearchPlugin"), Category = "AStarSearchPlugin")
+	static TArray<FVector2D> AStarSearch(const FVector2D& Start, const FVector2D& End, AGridSpawner* GridSpawner);
+	
+	static bool IsValid(const size_t & Row, const size_t& Col, const FVector2D& Point);
+	static bool IsBlocked(const TArray<TArray<AGridCell*>>& Grid, const FVector2D& Point);
+	static bool IsDestination(const FVector2D& Src, const FVector2D& Dest);
+	static double CalculateHValue(const FVector2D& Src, const FVector2D& Dest);
+	static void TracePath(const TArray<TArray<AGridCell*>>& Grid, const FVector2D& Dest);
 };

@@ -15,28 +15,35 @@ class ASTARSEARCHPLUGIN_API AGridSpawner : public AActor
 public:
 	AGridSpawner();
 
+	TArray<TArray<AGridCell*>> GetGrid() { return Grid; }
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute SetWidth function", Keywords = "GridSpawnerSetWidth"), Category = "AGridSpawner")
+	void SetWidth(int W){ Width = W;}
+
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+	
 	virtual void OnConstruction(const FTransform& Transform) override;
 
 
-private:
+public:
 	//Editor Variables
-	UPROPERTY(EditAnywhere)
-		unsigned int Width;
-	UPROPERTY(EditAnywhere)
-		unsigned int Height;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AGridSpawner)
+		int Width;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AGridSpawner)
+		 int Height;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AGridSpawner)
 		float Margin;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = AGridSpawner)
 		UStaticMesh* Mesh;
-	
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Spawn function", Keywords = "GridSpawnerSpawn"), Category = "AGridSpawner")
 	void Spawn();
 
 	//Non-Editor Variables
 	TArray<TArray<AGridCell*>> Grid;
 	USceneComponent* Root;
+	
 };
